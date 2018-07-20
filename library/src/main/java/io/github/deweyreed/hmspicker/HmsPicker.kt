@@ -32,9 +32,9 @@ class HmsPicker @JvmOverloads constructor(
         fun onClick(view: HmsPicker)
     }
 
-    private val inputSize = 5
+    private var inputSize = -1
     private val numberButtons = arrayOfNulls<Button>(10)
-    private var userInput = IntArray(inputSize)
+    private var userInput = IntArray(0)
     private var inputPointer = -1
 
     private val enteredHms: HmsView
@@ -55,30 +55,31 @@ class HmsPicker @JvmOverloads constructor(
     private var deleteBackgroundResId: Int = 0
     private var deleteIconResId: Int = 0
     private var dividerColor: Int = 0
+    private var hideSeconds: Boolean = false
     @StyleRes
     private var theme = -1
 
     /**
      * @return the hours as currently inputted by the user.
      */
-    val hours: Int get() = userInput[4]
+    val hours: Int get() = getUserInput(-1)
 
     /**
      * @return the minutes as currently inputted by the user.
      */
-    val minutes: Int get() = userInput[3] * 10 + userInput[2]
+    val minutes: Int get() = getUserInput(-2) * 10 + getUserInput(-3)
 
     /**
      * @return the seconds as currently inputted by the user.
      */
-    val seconds: Int get() = userInput[1] * 10 + userInput[0]
+    val seconds: Int get() = getUserInput(-4) * 10 + getUserInput(-5)
 
     /**
      * @return the time in seconds
      */
     val time: Int
-        get() = userInput[4] * 3600 + userInput[3] * 600 +
-                userInput[2] * 60 + userInput[1] * 10 + userInput[0]
+        get() = getUserInput(-1) * 3600 + getUserInput(-2) * 600 +
+                getUserInput(-3) * 60 + getUserInput(-4) * 10 + getUserInput(-5)
 
     init {
         LayoutInflater.from(context).inflate(R.layout.hms_picker_view, this)
@@ -98,6 +99,10 @@ class HmsPicker @JvmOverloads constructor(
                 R.drawable.ic_backspace_dark)
         dividerColor = ta.getColor(R.styleable.HmsPicker_hms_divider_color,
                 ContextCompat.getColor(context, R.color.default_divider_color_dark))
+        hideSeconds = ta.getBoolean(R.styleable.HmsPicker_hms_hide_seconds, false)
+        inputSize = if (hideSeconds) 3 else 5
+        userInput = IntArray(inputSize)
+
         val leftText = ta.getString(R.styleable.HmsPicker_hms_left_text) ?: ""
         val rightText = ta.getString(R.styleable.HmsPicker_hms_right_text) ?: ""
         ta.recycle()
@@ -106,6 +111,10 @@ class HmsPicker @JvmOverloads constructor(
         hoursLabel = findViewById(R.id.hours_label)
         minutesLabel = findViewById(R.id.minutes_label)
         secondsLabel = findViewById(R.id.seconds_label)
+        if (hideSeconds) {
+            enteredHms.hideSeconds()
+            secondsLabel.visibility = View.GONE
+        }
         deleteButton = findViewById<ImageButton>(R.id.delete).also { btn ->
             btn.setOnClickListener(this@HmsPicker)
             btn.setOnLongClickListener(this@HmsPicker)
@@ -207,6 +216,28 @@ class HmsPicker @JvmOverloads constructor(
         updateKeypad()
     }
 
+    private fun getUserInput(index: Int): Int {
+        if ((index >= userInput.size) || (index < -userInput.size)) {
+            return 0
+        }
+        return if (index < 0) {
+            userInput[index + userInput.size]
+        } else {
+            userInput[index]
+        }
+    }
+
+    private fun setUserInput(index: Int, value: Int) {
+        if ((index >= userInput.size) || (index < -userInput.size)) {
+            return
+        }
+        if (index < 0) {
+            userInput[index + userInput.size] = value
+        } else {
+            userInput[index] = value
+        }
+    }
+
     override fun onLongClick(v: View): Boolean {
         v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
         return if (v === deleteButton) {
@@ -242,7 +273,8 @@ class HmsPicker @JvmOverloads constructor(
      * Hide digit by passing -2 (for highest hours digit only);
      */
     private fun updateHms() {
-        enteredHms.setTime(userInput[4], userInput[3], userInput[2], userInput[1], userInput[0])
+        enteredHms.setTime(getUserInput(-1), getUserInput(-2), getUserInput(-3),
+                getUserInput(-4), getUserInput(-5))
     }
 
     private fun addClickedNumber(value: Int) {
@@ -297,14 +329,14 @@ class HmsPicker @JvmOverloads constructor(
         }
     }
 
-    fun setTime(hours: Int, minutes: Int, seconds: Int) {
-        userInput[4] = hours
-        userInput[3] = minutes / 10
-        userInput[2] = minutes % 10
-        userInput[1] = seconds / 10
-        userInput[0] = seconds % 10
+    fun setTime(hours: Int, minutes: Int, seconds: Int = 0) {
+        setUserInput(-1, hours)
+        setUserInput(-2, minutes / 10)
+        setUserInput(-3, minutes % 10)
+        setUserInput(-4, seconds / 10)
+        setUserInput(-5, seconds % 10)
 
-        for (i in 4 downTo 0) {
+        for (i in userInput.size - 1 downTo 0) {
             if (userInput[i] > 0) {
                 inputPointer = i
                 break

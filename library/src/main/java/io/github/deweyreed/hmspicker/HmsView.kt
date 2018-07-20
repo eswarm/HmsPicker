@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
+import android.view.View
 import android.widget.LinearLayout
 
 @Suppress("unused")
@@ -86,5 +87,10 @@ internal class HmsView @JvmOverloads constructor(
         minutesOnes.text = minutesOnesDigit.toString()
         secondsTens.text = secondsTensDigit.toString()
         secondsOnes.text = secondsOnesDigit.toString()
+    }
+
+    fun hideSeconds() {
+        secondsOnes.visibility = View.GONE
+        secondsTens.visibility = View.GONE
     }
 }

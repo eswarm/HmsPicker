@@ -9,5 +9,6 @@
         <attr name="hms_divider_color" format="color" />
         <attr name="hms_left_text" format="string" />
         <attr name="hms_right_text" format="string" />
+        <attr name="hms_hide_seconds" format="boolean"/>
     </declare-styleable>
 </resources>
