@@ -55,7 +55,7 @@ class HmsPicker @JvmOverloads constructor(
     private var deleteBackgroundResId: Int = 0
     private var deleteIconResId: Int = 0
     private var dividerColor: Int = 0
-    private var hideSeconds: Boolean = false
+    private var showSeconds: Boolean = true
     @StyleRes
     private var theme = -1
 
@@ -99,9 +99,7 @@ class HmsPicker @JvmOverloads constructor(
                 R.drawable.ic_backspace_dark)
         dividerColor = ta.getColor(R.styleable.HmsPicker_hms_divider_color,
                 ContextCompat.getColor(context, R.color.default_divider_color_dark))
-        hideSeconds = ta.getBoolean(R.styleable.HmsPicker_hms_hide_seconds, false)
-        inputSize = if (hideSeconds) 3 else 5
-        userInput = IntArray(inputSize)
+        showSeconds = ta.getBoolean(R.styleable.HmsPicker_hms_show_seconds, true)
 
         val leftText = ta.getString(R.styleable.HmsPicker_hms_left_text) ?: ""
         val rightText = ta.getString(R.styleable.HmsPicker_hms_right_text) ?: ""
@@ -111,10 +109,8 @@ class HmsPicker @JvmOverloads constructor(
         hoursLabel = findViewById(R.id.hours_label)
         minutesLabel = findViewById(R.id.minutes_label)
         secondsLabel = findViewById(R.id.seconds_label)
-        if (hideSeconds) {
-            enteredHms.hideSeconds()
-            secondsLabel.visibility = View.GONE
-        }
+        setShowSeconds(showSeconds)
+
         deleteButton = findViewById<ImageButton>(R.id.delete).also { btn ->
             btn.setOnClickListener(this@HmsPicker)
             btn.setOnLongClickListener(this@HmsPicker)
@@ -344,6 +340,14 @@ class HmsPicker @JvmOverloads constructor(
         }
 
         updateKeypad()
+    }
+
+    fun setShowSeconds(show: Boolean) {
+        showSeconds = !show
+        inputSize = if (showSeconds) 5 else 3
+        userInput = IntArray(inputSize)
+        enteredHms.showSeconds(false)
+        secondsLabel.visibility = if (showSeconds) View.VISIBLE else View.GONE
     }
 
     override fun onSaveInstanceState(): Parcelable? =

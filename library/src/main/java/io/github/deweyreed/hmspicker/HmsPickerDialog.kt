@@ -28,6 +28,7 @@ class HmsPickerDialog : DialogFragment() {
     var minutes: Int = 0
     var seconds: Int = 0
     var leftText: String = ""
+    var showSeconds: Boolean = true
     var leftClickListener: HmsPicker.OnLeftRightClickHandler? = null
     var rightText: String = ""
     var rightClickListener: HmsPicker.OnLeftRightClickHandler? = null
@@ -59,6 +60,7 @@ class HmsPickerDialog : DialogFragment() {
             setTime(this@HmsPickerDialog.hours, this@HmsPickerDialog.minutes, this@HmsPickerDialog.seconds)
             setLeftButton(leftText, leftClickListener)
             setRightButton(rightText, rightClickListener)
+            setShowSeconds(showSeconds)
         }
         view.findViewById<Button>(R.id.button_cancel).apply {
             setTextColor(textColor)

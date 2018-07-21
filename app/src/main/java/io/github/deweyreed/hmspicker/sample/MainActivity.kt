@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), HmsPickerDialog.HmsPickHandler {
         btnNight.setOnClickListener {
             HmsPickerBuilder(supportFragmentManager, this)
                     .setStyleResId(R.style.HmsPickerThemeDark)
+                    .setShowSeconds(false)
                     .show()
         }
 

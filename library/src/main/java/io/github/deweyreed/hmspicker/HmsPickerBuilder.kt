@@ -17,6 +17,7 @@ class HmsPickerBuilder(private val fragmentManager: FragmentManager,
     private var hours: Int = 0
     private var minutes: Int = 0
     private var seconds: Int = 0
+    private var showSeconds: Boolean = true
     private var leftText: String = ""
     private var leftClickListener: HmsPicker.OnLeftRightClickHandler? = null
     private var rightText: String = ""
@@ -57,6 +58,10 @@ class HmsPickerBuilder(private val fragmentManager: FragmentManager,
         dismissListener = listener
     }
 
+    fun setShowSeconds(show: Boolean): HmsPickerBuilder = apply {
+        showSeconds = show
+    }
+
     fun show() {
         val dialogTag = "hms_dialog"
         fragmentManager.findFragmentByTag(dialogTag)?.let { fragment ->
@@ -77,6 +82,7 @@ class HmsPickerBuilder(private val fragmentManager: FragmentManager,
             dialog.rightClickListener = rightClickListener
             dialog.dismissListener = dismissListener
             dialog.pickListener = pickListener
+            dialog.showSeconds = showSeconds
         }.show(fragmentManager, dialogTag)
     }
 }

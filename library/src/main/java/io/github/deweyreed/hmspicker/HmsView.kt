@@ -89,8 +89,8 @@ internal class HmsView @JvmOverloads constructor(
         secondsOnes.text = secondsOnesDigit.toString()
     }
 
-    fun hideSeconds() {
-        secondsOnes.visibility = View.GONE
-        secondsTens.visibility = View.GONE
+    fun showSeconds(show:Boolean) {
+        secondsOnes.visibility = if(show) View.VISIBLE else View.GONE
+        secondsTens.visibility = if(show) View.VISIBLE else View.GONE
     }
 }
