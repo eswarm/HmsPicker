@@ -274,11 +274,13 @@ class HmsPicker @JvmOverloads constructor(
     }
 
     private fun addClickedNumber(value: Int) {
-        if (inputPointer < inputSize - 1 && !(inputPointer == -1 && value == 0)) {
-            for (i in inputPointer downTo 0) {
-                userInput[i + 1] = userInput[i]
+        if (!(inputPointer == -1 && value == 0)) {
+            for (i in userInput.size-1 downTo 1) {
+                userInput[i] = userInput[i-1]
             }
-            ++inputPointer
+            if(inputPointer < userInput.size-1) {
+                ++inputPointer
+            }
             userInput[0] = value
         }
     }
@@ -343,10 +345,10 @@ class HmsPicker @JvmOverloads constructor(
     }
 
     fun setShowSeconds(show: Boolean) {
-        showSeconds = !show
+        showSeconds = show
         inputSize = if (showSeconds) 5 else 3
         userInput = IntArray(inputSize)
-        enteredHms.showSeconds(false)
+        enteredHms.showSeconds(show)
         secondsLabel.visibility = if (showSeconds) View.VISIBLE else View.GONE
     }
 
