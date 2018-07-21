@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), HmsPickerDialog.HmsPickHandler {
             HmsPickerBuilder(supportFragmentManager, this)
                     .setStyleResId(R.style.HmsPickerThemeDark)
                     .setShowSeconds(false)
+                    .setTime(5, 6, 0)
                     .show()
         }
 

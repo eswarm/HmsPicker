@@ -57,10 +57,10 @@ class HmsPickerDialog : DialogFragment() {
         val view = inflater.inflate(R.layout.fragment_hms_picker_dialog, container, false)
         hmsPicker = view.findViewById<HmsPicker>(R.id.hms_picker).apply {
             setTheme(styleResId)
+            setShowSeconds(showSeconds)
             setTime(this@HmsPickerDialog.hours, this@HmsPickerDialog.minutes, this@HmsPickerDialog.seconds)
             setLeftButton(leftText, leftClickListener)
             setRightButton(rightText, rightClickListener)
-            setShowSeconds(showSeconds)
         }
         view.findViewById<Button>(R.id.button_cancel).apply {
             setTextColor(textColor)
