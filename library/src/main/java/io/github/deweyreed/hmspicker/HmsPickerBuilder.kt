@@ -1,15 +1,15 @@
 package io.github.deweyreed.hmspicker
 
 import android.content.DialogInterface
-import android.support.annotation.StyleRes
-import android.support.v4.app.FragmentManager
+import androidx.annotation.StyleRes
+import androidx.fragment.app.FragmentManager
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 /**
  * Created on 2018/2/11.
  */
 
-class HmsPickerBuilder(private val fragmentManager: FragmentManager,
+class HmsPickerBuilder(private val fragmentManager: androidx.fragment.app.FragmentManager,
                        private val pickListener: HmsPickerDialog.HmsPickHandler) {
     private var reference: Int = -1
     @StyleRes

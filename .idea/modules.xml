@@ -3,11 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/HmsPicker.iml" filepath="$PROJECT_DIR$/.idea/HmsPicker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/HmsPicker.iml" filepath="$PROJECT_DIR$/HmsPicker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/HmsPicker-app.iml" filepath="$PROJECT_DIR$/app/HmsPicker-app.iml" group="HmsPicker/app" />
+      <module fileurl="file://$PROJECT_DIR$/library/HmsPicker-library.iml" filepath="$PROJECT_DIR$/library/HmsPicker-library.iml" group="HmsPicker/library" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ownfactory-HmsPicker.iml" filepath="$PROJECT_DIR$/ownfactory-HmsPicker.iml" group="HmsPicker" />
     </modules>
   </component>
 </project>

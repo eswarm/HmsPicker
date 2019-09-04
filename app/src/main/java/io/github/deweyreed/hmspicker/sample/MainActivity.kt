@@ -2,7 +2,7 @@ package io.github.deweyreed.hmspicker.sample
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import io.github.deweyreed.hmspicker.HmsPicker
 import io.github.deweyreed.hmspicker.HmsPickerBuilder

@@ -1,11 +1,12 @@
 package io.github.deweyreed.hmspicker
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Parcel
 import android.os.Parcelable
-import android.support.annotation.StyleRes
-import android.support.v4.content.ContextCompat
+import androidx.annotation.StyleRes
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
@@ -403,6 +404,7 @@ class HmsPicker @JvmOverloads constructor(
         }
 
         companion object {
+            @SuppressLint("ParcelCreator")
             @JvmStatic
             val CREATOR: Parcelable.Creator<SavedState> = object : Parcelable.Creator<SavedState> {
                 override fun createFromParcel(`in`: Parcel): SavedState = SavedState(`in`)

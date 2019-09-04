@@ -3,17 +3,13 @@ package io.github.deweyreed.hmspicker
 import android.content.DialogInterface
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.support.annotation.DrawableRes
-import android.support.annotation.StyleRes
-import android.support.v4.app.DialogFragment
+import androidx.annotation.DrawableRes
+import androidx.annotation.StyleRes
+import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-
-/**
- * Created on 2018/2/11.
- */
 
 class HmsPickerDialog : DialogFragment() {
 
@@ -42,7 +38,7 @@ class HmsPickerDialog : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NO_TITLE, 0)
+        setStyle(androidx.fragment.app.DialogFragment.STYLE_NO_TITLE, 0)
 
         if (styleResId != -1) {
             activity?.application?.obtainStyledAttributes(styleResId, R.styleable.HmsPicker)?.apply {
